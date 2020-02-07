@@ -16,8 +16,11 @@
   color: #000000;
   margin-bottom: 0px;
   width: 32%;
-  text-align: left;
-  font-weight: bold;
+  text-align: left
+}
+
+.PE_basic p span{
+  color: #138496;
 }
 
 .PE_basic p:nth-child(1) {
@@ -34,9 +37,17 @@
   overflow-y: scroll;
 }
 
+.PE_advance td{
+  vertical-align: top;
+}
+
 .PE_advance p {
   color: #000000;
   margin-bottom: 5px;
+}
+
+.PE_advance p a{
+  color: #0000FF;
 }
 
 .PE_show {

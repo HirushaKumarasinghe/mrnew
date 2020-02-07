@@ -1,6 +1,28 @@
 .ER_main {
 }
 
+.ER_dep {
+  text-align: left;
+  padding-left: 25px;
+  margin-bottom: 25px;
+}
+
+.ER_dep select {
+  background-color: #17a2b8;
+  color: #ffffff;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+.ER_dep select option {
+  background-color: #ffffff;
+  color: #000000;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+}
+
 .ER_nav {
   display: flex;
   flex-direction: row;
@@ -20,14 +42,15 @@
   transition-duration: 0.5s;
 }
 
-.ER_nav h1:hover {
-  background-color: #e5e5e5;
+.ER_nav .active {
+  background: linear-gradient(to right, #ffffff 5%, #17a2b855, #ffffff 95%);
 }
 
 .ER_nav h1:hover {
-  color: blue;
+  background: linear-gradient(to right, #ffffff 5%, #17a2b855, #ffffff 95%);
 }
 
-.ER_rotate{
-transform: rotateZ(180deg);
+
+.ER_rotate {
+  transform: rotateZ(180deg);
 }

@@ -23,25 +23,25 @@ class Admin extends Component {
             <li>
               <a href="#">
                 <i className="fas fa-image"></i>
-                Email Review
+                &nbsp;&nbsp;Email Review
               </a>
             </li>
             <li>
               <a href="#">
                 <i className="fas fa-question"></i>
-                News
+                &nbsp;&nbsp;News
               </a>
             </li>
             <li>
               <a href="#">
                 <i className="fas fa-paper-plane"></i>
-                Projects
+                &nbsp;&nbsp;Projects
               </a>
             </li>
             <li>
               <a href="#">
                 <i className="fas fa-paper-plane"></i>
-                Charity
+                &nbsp;&nbsp;Charity
               </a>
             </li>
           </ul>
@@ -119,7 +119,7 @@ class Admin extends Component {
             </div>
           </nav>
 
-          <EmailReview />
+          <EmailReview dep="all"/>
         </div>
       </div>
     );
