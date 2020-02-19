@@ -1,21 +1,19 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import './App.css';
+import "./App.css";
 
-import Admin from "./admin/admin"
+import Sidebar from "./Sidebar/Sidebar.js";
+import Admin from "./admin/admin";
 
 function App() {
   return (
     <div className="App">
-      <Router>
-        {/* <Switch> */}
-          <Route
-            path="/"
-            strict
-            render={props => <Admin {...props} />}
-          />
-        {/* </Switch> */}
-      </Router>
+      <div className="wrapper">
+        <Router>
+          <Sidebar />
+          <Route path="/" render={props => <Admin {...props} />} />
+        </Router>
+      </div>
     </div>
   );
 }

@@ -1,71 +1,54 @@
 import React, { Component } from "react";
+import { Route } from "react-router-dom";
 
 import "./admin.css";
 
 import EmailReview from "../EmailReview/EmailReview";
+import AddNews from "../News/AddNews.js";
+
+// controllers
+import Admin_Controller from "../Controller/Admin/AdminController.js";
 
 class Admin extends Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      loggedin: false,
+      loginError: "",
+      cUser: ""
+    };
+  }
+
+  async handleLogin(e) {
+    e.preventDefault();
+
+    const _uname = e.target.uname.value;
+    const _pass = e.target.pass.value;
+
+    if (await Admin_Controller.logIn(_uname, _pass)) {
+      console.log("login Success");
+      console.log(this.props);
+
+      this.setState({
+        loggedin: true,
+        loginError: "",
+        cUser: _uname
+      });
+      if ((this.props.location.pathname === "/")) {
+        this.props.history.push("/emailreview");
+      }
+    } else {
+      this.setState({
+        loggedIn: false,
+        loginError: "Invalid credentials.!",
+        cUser: ""
+      });
+    }
   }
 
   render() {
-    return (
-      <div className="wrapper">
-        <nav id="sidebar">
-          <div className="sidebar-header">
-            <h3>Priminister's Office Admin Portal</h3>
-            <strong>PAP</strong>
-          </div>
-
-          <ul className="list-unstyled components">
-            <li>
-              <a href="#">
-                <i className="fas fa-image"></i>
-                &nbsp;&nbsp;Email Review
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i className="fas fa-question"></i>
-                &nbsp;&nbsp;News
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i className="fas fa-paper-plane"></i>
-                &nbsp;&nbsp;Projects
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i className="fas fa-paper-plane"></i>
-                &nbsp;&nbsp;Charity
-              </a>
-            </li>
-          </ul>
-
-          <ul className="list-unstyled CTAs">
-            <li>
-              <a
-                href="https://bootstrapious.com/tutorial/files/sidebar.zip"
-                className="download"
-              >
-                Download source
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://bootstrapious.com/p/bootstrap-sidebar"
-                className="article"
-              >
-                Back to article
-              </a>
-            </li>
-          </ul>
-        </nav>
-
+    if (this.state.loggedin) {
+      return (
         <div id="content">
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
@@ -77,52 +60,50 @@ class Admin extends Component {
                 <i className="fas fa-align-left"></i>
                 <span>Toggle Sidebar</span>
               </button>
-              <button
-                className="btn btn-dark d-inline-block d-lg-none ml-auto"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <i className="fas fa-align-justify"></i>
-              </button>
-
-              <div
-                className="collapse navbar-collapse"
-                id="navbarSupportedContent"
-              >
-                <ul className="nav navbar-nav ml-auto">
-                  <li className="nav-item active">
-                    <a className="nav-link" href="#">
-                      Page
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="#">
-                      Page
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="#">
-                      Page
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="#">
-                      Page
-                    </a>
-                  </li>
-                </ul>
-              </div>
             </div>
           </nav>
 
-          <EmailReview dep="all"/>
+          <Route
+            path="/emailreview"
+            strict
+            render={props => <EmailReview {...props} dep="all" />}
+          />
+
+          <Route
+            path="/news/add"
+            exact
+            strict
+            render={props => <AddNews {...props} />}
+          />
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div className="mrad_login">
+          <div className="mrad_login_formContainer">
+            <h1>Log in</h1>
+
+            <form onSubmit={event => this.handleLogin(event)}>
+              <label>{this.state.loginError}</label>
+              <input
+                required
+                type="text"
+                name="uname"
+                placeholder="Enter your username"
+              />
+              <input
+                required
+                type="password"
+                name="pass"
+                placeholder="Enter your password"
+              />
+
+              <button>Login</button>
+            </form>
+          </div>
+        </div>
+      );
+    }
   }
 }
 
